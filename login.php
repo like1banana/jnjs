@@ -1,30 +1,30 @@
 <?php
 session_start();
-define('linek',explode(" ","123 456 789 147 258 369 159 357"));
 $account=$_POST['textfield'];
-$pwd=$_POST['password'];
+$pwd=$_POST['pwd'];
 $cimage=$_POST['textfield2'];
 $simage=$_SESSION['srt'];
-$nbox=$_SESSION['nbox'];
-if($account=="admin"&&$pwd=="1234"){
-	if($cimage==$simage){
-			$_SESSION['alert']="登入成功";
-			unset($_SESSION['times']);
-			header('location:win.php');
-		}else{
-		$_SESSION['alert']="驗證碼錯誤";
-		header('location:index.php');
-		}
-		
-		}else{
-		$_SESSION['alert']="帳號密碼錯誤";
-		header('location:index.php');
-		}
 if(++$_SESSION['times']>2){
-	header('location:lost.php');
 	$_SESSION['times']=0;
-	$_SESSION['alert']="登入失敗三次";
-	header('location:lost.php');
-	
+	gourl("登入失敗超過三次","lost.php");
+	$_SESSION['times']=0;
+}
+
+if($account=="admin" && $pwd=="1234"){
+	if($cimage==$simage){
+		gourl("進入第二驗證碼","clike.php");
+		$_SESSION['times']=0;
+	}else{
+		gourl("驗證碼錯誤","index.php");
+		
+	}
+}else{
+	gourl("帳號密碼錯誤","index.php");
+}
+
+function gourl($test,$url){
+	$_SESSION['alert']=$test;
+	header('location:'.$url);
+	exit();
 }
 ?>

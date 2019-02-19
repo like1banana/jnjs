@@ -3,6 +3,7 @@ session_start();
 $alert="";
 if(!empty($_SESSION['alert'])){
 	$alert=$_SESSION['alert'];
+	unset($_SESSION['alert']);
 }
 ?>
 <!doctype html>
@@ -15,10 +16,10 @@ if(!empty($_SESSION['alert'])){
 
 <body>
 <div>
-  <p style="text-align: center">汽車共乘網站管理--登入</p>
+  <p>汽車共乘網站管理--登入</p>
 </div>
 <form action="login.php" id="form1" name="form1" method="post">
-  <p style="text-align: center">
+  <p>
 <label for="textfield">帳號:</label>
     
     <input type="text" name="textfield" id="textfield">
@@ -26,7 +27,7 @@ if(!empty($_SESSION['alert'])){
   <p>
     <span style="text-align: center">
     <label for="password">密碼:</label>
-    <input type="password" name="password" id="password">
+    <input type="password" name="pwd" id="pwd">
   </span></p>
   <p>
     <span style="text-align: left">
@@ -42,8 +43,6 @@ if(!empty($_SESSION['alert'])){
   </span>
 </form>
 <script src="jq.js"></script>
-<?php
-unset($_SESSION['alert']);?>
 <script>
 if('<?php echo($alert); ?>'!=''){
   alert("<?php echo($alert); ?>");
